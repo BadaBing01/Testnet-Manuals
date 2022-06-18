@@ -1,0 +1,47 @@
+3 Подготавливаем сервер (вводим все одной командой)
+
+    $ apt-get update \
+    && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y --no-install-recommends \
+    tzdata \
+    git \
+    ca-certificates \
+    curl \
+    build-essential \
+    libssl-dev \
+    pkg-config \
+    libclang-dev \
+    cmake
+$ apt install cargo 
+ жмем 
+ Y 
+ и Enter
+
+4 Клонируем себе на сервер репозиторий гитхаб 
+
+$ git clone https://github.com/<Ваш юзернейм гитхаб>/sui.git
+$ cd sui
+
+$ git remote add upstream https://github.com/MystenLabs/sui
+
+$ git fetch upstream
+
+$ git checkout --track upstream/devnet
+
+$ cp crates/sui-config/data/fullnode-template.yaml fullnode.yaml
+$ curl -fLJO https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
+$ screen -S 1
+
+$ cargo run --release --bin sui-node -- --config-path fullnode.yaml
+Закрываем сессию screen 
+
+ctrl + a + d
+
+
+У многих часто вылетало по этому запустили установку через Screen 
+
+
+По итогу должно выдать 
+
+SuiNode started!
+
+Не забываем отчитаться о проделанном в дискорде проекта
